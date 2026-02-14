@@ -601,7 +601,10 @@
 	else if(!num_humans && !num_xenos)
 		round_finished = MODE_INFESTATION_DRAW_DEATH //Both were somehow destroyed.
 	else if (force_end_at && world.time > force_end_at)
-		round_finished = MODE_INFESTATION_X_MINOR // Times up.
+		if(num_xenos && num_humans > num_xenos * 3) // Marines evacuated despite having overwhelming numbers.
+			round_finished = MODE_INFESTATION_X_MAJOR
+		else
+			round_finished = MODE_INFESTATION_X_MINOR // Times up.
 
 /datum/game_mode/colonialmarines/count_humans_and_xenos(list/z_levels)
 	. = ..()
